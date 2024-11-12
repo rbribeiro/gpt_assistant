@@ -26,12 +26,9 @@ const mainMenuChoices = [
   "List Assistants", // Listar assistentes
   "Create Assistant", // Criar assistente
   "Chat with Assistant", // Conversar com assistente
-  "Create Thread", // Criar Thread
   "Upload File", // Enviar arquivo
   "Exit", // Sair da aplicação
 ];
-
-let selectedAssistant = null; // Variável para armazenar o assistente selecionado
 
 // Função que exibe o menu principal e lida com as opções escolhidas
 const mainMenu = () => {
@@ -55,9 +52,6 @@ const mainMenu = () => {
           break;
         case "Create Assistant":
           createAssistant();
-          break;
-        case "Create Thread":
-          createThread();
           break;
         case "Upload File":
           uploadFile();
@@ -128,7 +122,7 @@ const listAssistants = async () => {
 
   returnToMenu(); // Retorna ao menu principal
 };
-
+//TODO: Fix this method
 // Função para criar um novo assistente
 const createAssistant = async () => {
   try {
@@ -164,60 +158,6 @@ const createAssistant = async () => {
     console.log(`Assistant '${assistant.name}' created successfully!`);
   } catch (error) {
     console.error("An error occurred:", error); // Lida com erros
-  }
-  returnToMenu(); // Retorna ao menu principal
-};
-
-/**
- * Função para selecionar um assistente existente de um arquivo JSON.
- *
- * Esta função lê um arquivo `assistants.json` que contém uma lista de assistentes previamente criados.
- * Se o arquivo contém assistentes, eles são mapeados e exibidos como opções em um menu interativo,
- * permitindo que o usuário selecione um assistente pelo nome. O assistente selecionado é armazenado
- * na variável `selectedAssistant`.
- *
- * Fluxo da função:
- * 1. Lê o arquivo `assistants.json` para obter a lista de assistentes.
- * 2. Verifica se a lista de assistentes está vazia. Se estiver, exibe uma mensagem e retorna ao menu principal.
- * 3. Mapeia os nomes dos assistentes para exibir como opções no menu.
- * 4. Usa `inquirer` para exibir as opções e solicitar ao usuário que selecione um assistente.
- * 5. Encontra o assistente correspondente ao nome selecionado e exibe uma mensagem de confirmação.
- * 6. Lida com possíveis erros, como o arquivo não encontrado, e exibe uma mensagem de erro.
- * 7. Retorna ao menu principal chamando `returnToMenu()`.
- *
- * @async
- * @function selectAssistant
- * @returns {void} Retorna ao menu principal após a execução.
- */
-const selectAssistant = async () => {
-  const assistantsFile = path.join(__dirname, "assistants.json"); // Caminho do arquivo de assistentes
-  try {
-    const assistants = await fs.readJson(assistantsFile); // Lê o arquivo JSON de assistentes
-    if (assistants.length === 0) {
-      console.log("\nNo assistants available to select.");
-      return returnToMenu(); // Retorna ao menu se não houver assistentes
-    }
-
-    // Mapeia os assistentes para exibir como opções no menu
-    const assistantNames = assistants.map((assistant) => assistant.name);
-
-    // Solicita ao usuário que selecione um assistente
-    const { selectedName } = await inquirer.prompt([
-      {
-        type: "list",
-        name: "selectedName",
-        message: "Select an assistant:",
-        choices: assistantNames,
-      },
-    ]);
-
-    // Encontra o assistente selecionado
-    selectedAssistant = assistants.find(
-      (assistant) => assistant.name === selectedName,
-    );
-    console.log(`You selected '${selectedAssistant.name}'`);
-  } catch (err) {
-    console.log("No assistants found."); // Lida com erros se o arquivo não for encontrado
   }
   returnToMenu(); // Retorna ao menu principal
 };
