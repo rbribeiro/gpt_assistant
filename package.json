@@ -1,0 +1,26 @@
+{
+  "name": "gpt_assistant",
+  "version": "1.0.0",
+  "description": "A CLI Tool to test OpenAI Assistant's API",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rbribeiro/gpt_assistant.git"
+  },
+  "author": "Rodrigo Ribeiro, Ph.D",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rbribeiro/gpt_assistant/issues"
+  },
+  "homepage": "https://github.com/rbribeiro/gpt_assistant#readme",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "fs-extra": "^11.2.0",
+    "inquirer": "^12.1.0",
+    "openai": "^4.71.1"
+  }
+}
